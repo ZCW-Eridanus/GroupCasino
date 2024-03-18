@@ -58,7 +58,7 @@ public class Casino implements Runnable {
 
     private String getArcadeDashboardInput() {
         return console.getStringInput(new StringBuilder()
-                .append("Welcome to the Arcade Dashboard!")
+                .append("Welcome to the Casino Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
                 .append("\n\t[ create-account ], [ select-game ], [ logout ]")
                 .toString());
