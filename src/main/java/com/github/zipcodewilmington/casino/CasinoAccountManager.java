@@ -9,7 +9,7 @@ public class CasinoAccountManager {
     /**
      * @param accountName     name of account to be returned
      * @param accountPassword password of account to be returned
-     * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
+     * @return `CasinoAccount` with specified `accountName` and `accountPassword`
      */
     public CasinoAccount getAccount(String accountName, String accountPassword) {
         String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -19,11 +19,11 @@ public class CasinoAccountManager {
     }
 
     /**
-     * logs & creates a new `ArcadeAccount`
+     * logs & creates a new `CasinoAccount`
      *
      * @param accountName     name of account to be created
      * @param accountPassword password of account to be created
-     * @return new instance of `ArcadeAccount` with specified `accountName` and `accountPassword`
+     * @return new instance of `CasinoAccount` with specified `accountName` and `accountPassword`
      */
     public CasinoAccount createAccount(String accountName, String accountPassword) {
         String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -33,9 +33,9 @@ public class CasinoAccountManager {
     }
 
     /**
-     * logs & registers a new `ArcadeAccount` to `this.getArcadeAccountList()`
+     * logs & registers a new `CasinoAccount` to `this.getCasinoAccountList()`
      *
-     * @param casinoAccount the arcadeAccount to be added to `this.getArcadeAccountList()`
+     * @param casinoAccount the arcadeAccount to be added to `this.getCasinoAccountList()`
      */
     public void registerAccount(CasinoAccount casinoAccount) {
         String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();

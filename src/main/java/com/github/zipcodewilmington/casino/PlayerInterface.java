@@ -8,9 +8,9 @@ package com.github.zipcodewilmington.casino;
  */
 public interface PlayerInterface {
     /**
-     * @return the `ArcadeAccount` used to log into the `Arcade` system to play this game
+     * @return the `CasinoAccount` used to log into the `Casino` system to play this game
      */
-    CasinoAccount getArcadeAccount();
+    CasinoAccount getAccount();
 
     /**
      * Defines how a specific implementation of `PlayerInterface` plays their respective game.
