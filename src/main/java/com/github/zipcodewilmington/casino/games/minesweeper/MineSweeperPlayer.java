@@ -6,7 +6,7 @@ import com.github.zipcodewilmington.casino.PlayerInterface;
 public class MineSweeperPlayer implements PlayerInterface {
     CasinoAccount acct;
 
-    MineSweeperPlayer(CasinoAccount acct) {
+    public MineSweeperPlayer(CasinoAccount acct) {
         this.acct = acct;
     }
 

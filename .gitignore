@@ -1,3 +1,6 @@
+uml.ucls
+*.puml
+*.ser
 
 # Created by https://www.gitignore.io/api/eclipse,intellij,netbeans,notepadpp,sublimetext,visualstudio
 # Edit at https://www.gitignore.io/?templates=eclipse,intellij,netbeans,notepadpp,sublimetext,visualstudio
