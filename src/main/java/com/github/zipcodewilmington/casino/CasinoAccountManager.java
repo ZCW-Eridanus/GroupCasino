@@ -61,7 +61,7 @@ public class CasinoAccountManager implements Serializable {
     /**
      * logs & registers a new `CasinoAccount` to `this.getCasinoAccountList()`
      *
-     * @param casinoAccount the arcadeAccount to be added to `this.getCasinoAccountList()`
+     * @param casinoAccount the casinoAccount to be added to `this.getCasinoAccountList()`
      */
     public void registerAccount(CasinoAccount casinoAccount) {
 //        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
