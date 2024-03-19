@@ -3,10 +3,7 @@ import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.DealerWithDeckOfCards;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 //TODO YOU need to set some parameters
 
@@ -24,9 +21,20 @@ public class ThreeCardPokerGame extends DealerWithDeckOfCards implements GameInt
     String dealerCard1;
     String dealerCard2;
     String dealerCard3;
-    String playerCard1;
-    String playerCard2;
-    String playerCard3;
+
+
+    //card1 for player
+        String playerCard1;
+        String valueOfCard1;
+        String suitOfCard1;
+    //card2 for player
+        String playerCard2;
+        String valueOfCard2;
+        String suitOfCard2;
+    //card3 for player
+        String playerCard3;
+        String valueOfCard3;
+        String suitOfCard3;
     public int winnings;
     boolean pairPlus = false;
     boolean playedHand = false;
@@ -111,15 +119,15 @@ public class ThreeCardPokerGame extends DealerWithDeckOfCards implements GameInt
         System.out.println("Enter your wager to play : ");
         userWagerInput = scanner.nextInt();
 
-        isInputValid = validateWagerInput();
+        isInputValid = validateFirstWagerInput();
             while(!isInputValid) {
             userWagerInput = scanner.nextInt();
-            isInputValid = validateWagerInput();
+            isInputValid = validateFirstWagerInput();
             balance -= userWagerInput;
 
     }
 }
-public static boolean validateWagerInput(){
+public static boolean validateFirstWagerInput(){
         if(wagerAmount > balance.getBalance() / 2 ){
         System.out.println("You don't have enough money. Enter a valid amount : ");
         return false;
@@ -128,28 +136,67 @@ public static boolean validateWagerInput(){
 }
 
 
+
     public void pairPlus() {
+        boolean isInputValid;
         System.out.println("Would you like to wager on Ante plus (Type - 0 - if not) : ");
         wagerAmount = scanner.nextInt();
-        if(wagerAmount > 0){
+        isInputValid = validatePairPlusInput();
+        while (!isInputValid) {
+            userWagerInput = scanner.nextInt();
+            isInputValid = validatePairPlusInput();
+        }
+        if (wagerAmount > 0) {
             pairPlus = true;
         }
+        balance -= userWagerInput;
     }
+
+
+    public static boolean validatePairPlusInput(){
+        if(wagerAmount > balance.getBalance() * 2){
+            System.out.println("You don't have enough money to play pair plus if you want to continue your game. Enter a valid amount : ");
+            return false;
+        }
+        return true;
+    }
+
+
+
     @Override
     public void action() {
         System.out.println("Type - Deal - to deal the cards. ");
         scanner.next().toLowerCase();
     }
+
+
+
     public void playYourHand() {
         System.out.println("Would you like to play your hand Yes/No");
-         if(scanner.next().toLowerCase().charAt(0) == 'n'){
+        boolean isInputValid;
+        if(scanner.next().toLowerCase().charAt(0) == 'n'){
              exitGame();
          }
+        wagerAmount = scanner.nextInt();
+        isInputValid = validatePlayYourHandInput();
+        while (!isInputValid) {
+            userWagerInput = scanner.nextInt();
+            isInputValid = validatePlayYourHandInput();
+        }
+
         if(wagerAmount > 0){
             playedHand = true;
         }
          balance -= userWagerInput
     }
+    public static boolean validatePlayYourHandInput(){
+        if(wagerAmount > balance.getBalance()){
+            System.out.println("You don't have enough money to play pair against the dealer. Enter a valid amount : ");
+            return false;
+        }
+        return true;
+    }
+    
 
     @Override
     public void exitGame() {
@@ -164,15 +211,25 @@ public static boolean validateWagerInput(){
         dealerCard3 = dealOneCard();
         dealerHand.add(dealerCard3);
         Collections.sort(dealerHand);
+
+        System.out.println("? , ? , ?");
+
     }
     public void dealPlayerHand(){
         playerCard1 = dealOneCard();
+         valueOfCard1 = String.valueOf(playerCard1.charAt(0));
+         suitOfCard1 = String.valueOf(playerCard1.charAt(1));
         playerOneHand.add(playerCard1);
         playerCard2 = dealOneCard();
+         valueOfCard2 = String.valueOf(playerCard1.charAt(0));
+         suitOfCard2 = String.valueOf(playerCard1.charAt(1));
         playerOneHand.add(playerCard2);
         playerCard3 = dealOneCard();
+         valueOfCard3 = String.valueOf(playerCard1.charAt(0));
+         suitOfCard3 = String.valueOf(playerCard1.charAt(1));
         playerOneHand.add(playerCard2);
         Collections.sort(playerOneHand);
+
         System.out.println(playerOneHand);
     }
     public void playerWon(){
@@ -214,7 +271,7 @@ public static boolean validateWagerInput(){
                     }
                     break;
                 case straight:
-                    if () {
+                    if (Integer.parseInt(valueOfCard1) +1  == Integer.parseInt(valueOfCard2)  ) {
                         winnings = wagerAmount * 6;
                         balance += winnings;
                         playerWon();
