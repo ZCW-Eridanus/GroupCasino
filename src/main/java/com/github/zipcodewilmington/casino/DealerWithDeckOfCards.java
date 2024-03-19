@@ -23,7 +23,6 @@ public class DealerWithDeckOfCards {
         Collections.shuffle(cards);
     }
     public String dealOneCard(){
-        cards.pop();
-        return null;
+        return cards.pop();
     }
 }
