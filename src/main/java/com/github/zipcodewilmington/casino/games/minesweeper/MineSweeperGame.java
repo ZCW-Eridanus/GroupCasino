@@ -2,6 +2,7 @@ package com.github.zipcodewilmington.casino.games.minesweeper;
 
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
+import com.github.zipcodewilmington.casino.PlayerInterface;
 
 import java.util.Scanner;
 
@@ -24,13 +25,13 @@ public class MineSweeperGame implements GameInterface {
             System.out.println("Would you like to (p)lay or e(x)it? (p/X)");
             char input = sc.nextLine().toLowerCase().charAt(0);
             if (input == 'p') {
-                playGame();
+                playGame(player);
             } else {
                 System.out.println("Exiting...");
                 break;
             }
         }
-        exitGame();
+        exitGame(this.player);
     }
 
     @Override
@@ -40,14 +41,14 @@ public class MineSweeperGame implements GameInterface {
     }
 
     @Override
-    public char playGame() {
+    public <T extends PlayerInterface> char playGame(T player) {
         // TODO: Create an N by N grid with some amount of mines determined by the player.
         // Todo is ToDONE
         System.out.println("Enter a grid size. ");
         int sz = sc.nextInt();
         mineGrid = new boolean[sz][sz];
         while (!exit) {
-            action();
+            action(this.player);
         }
         return 0;
     }
@@ -58,13 +59,20 @@ public class MineSweeperGame implements GameInterface {
     }
 
     @Override
-    public void action() {
-        // TODO: Allow user to select a cell in an N by N grid to reveal or to exit to the menu
+    public <T extends PlayerInterface> void action(T player) {
+        action((MineSweeperPlayer) player);
+    }
 
+    public void action(MineSweeperPlayer player) {
+        // TODO
     }
 
     @Override
-    public void exitGame() {
+    public <T extends PlayerInterface> void exitGame(T player) {
+        exitGame((MineSweeperPlayer) player);
+    }
+
+    public void exitGame(MineSweeperPlayer player) {
         this.player = null;
     }
 }
