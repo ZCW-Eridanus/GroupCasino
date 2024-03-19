@@ -1,10 +1,19 @@
 package com.github.zipcodewilmington;
 
-import com.github.zipcodewilmington.casino.*;
-import com.github.zipcodewilmington.casino.games.minesweeper.*;
-import com.github.zipcodewilmington.casino.games.numberguess.*;
-import com.github.zipcodewilmington.casino.games.slots.*;
-import com.github.zipcodewilmington.utils.*;
+import com.github.zipcodewilmington.casino.CasinoAccount;
+import com.github.zipcodewilmington.casino.CasinoAccountManager;
+import com.github.zipcodewilmington.casino.GameInterface;
+import com.github.zipcodewilmington.casino.PlayerInterface;
+import com.github.zipcodewilmington.casino.games.ThreeCardPoker.ThreeCardPokerGame;
+import com.github.zipcodewilmington.casino.games.ThreeCardPoker.ThreeCardPokerPlayer;
+import com.github.zipcodewilmington.casino.games.minesweeper.MineSweeperGame;
+import com.github.zipcodewilmington.casino.games.minesweeper.MineSweeperPlayer;
+import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
+import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
+import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
+import com.github.zipcodewilmington.casino.games.slots.SlotsPlayer;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
 
 /**
  * Created by leon on 7/21/2020.
@@ -31,7 +40,9 @@ public class Casino implements Runnable {
                         play(new NumberGuessGame(), new NumberGuessPlayer());
                     } else if (gameSelectionInput.equals("MINESWEEPER")) {
                         play(new MineSweeperGame(), new MineSweeperPlayer(casinoAccount));
-                    } else {
+                    } else if (gameSelectionInput.equals("THREE CARD POKER")) {
+                        play(new ThreeCardPokerGame(), new ThreeCardPokerPlayer(casinoAccount));
+                    }else {
                         // TODO - implement better exception handling
                         String errorMessage = "[ %s ] is an invalid game selection";
                         throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
@@ -65,7 +76,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ MINESWEEPER ]")
+                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ MINESWEEPER ], [ THREE CARD POKER ]")
                 .toString());
     }
 

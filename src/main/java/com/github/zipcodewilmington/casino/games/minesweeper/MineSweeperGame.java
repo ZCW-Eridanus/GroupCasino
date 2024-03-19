@@ -40,7 +40,7 @@ public class MineSweeperGame implements GameInterface {
     }
 
     @Override
-    public void playGame() {
+    public char playGame() {
         // TODO: Create an N by N grid with some amount of mines determined by the player.
         // Todo is ToDONE
         System.out.println("Enter a grid size. ");
@@ -49,6 +49,7 @@ public class MineSweeperGame implements GameInterface {
         while (!exit) {
             action();
         }
+        return 0;
     }
 
     @Override

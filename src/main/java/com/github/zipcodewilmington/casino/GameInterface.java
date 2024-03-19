@@ -31,7 +31,7 @@ public interface GameInterface extends Runnable {
 
     void run(CasinoAccount acct);
 
-    void playGame();
+    char playGame();
 
     void setWager(int wager);
 
