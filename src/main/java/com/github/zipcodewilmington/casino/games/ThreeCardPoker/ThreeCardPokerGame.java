@@ -27,8 +27,11 @@ public class ThreeCardPokerGame extends DealerWithDeckOfCards implements GameInt
     String playerCard1;
     String playerCard2;
     String playerCard3;
-    boolean pairPlus = false
+    public int winnings;
+    boolean pairPlus = false;
     boolean playedHand = false;
+    boolean doTheyPairPlus;
+    boolean doTheyAnteBonus;
 
 
 
@@ -48,6 +51,10 @@ public class ThreeCardPokerGame extends DealerWithDeckOfCards implements GameInt
             dealerHand();
             dealPlayerHand();
             playYourHand();
+            pairPlusOdds();
+            anteBounsOdds();
+            playerWon();
+            playerLost();
 
 
 
@@ -168,6 +175,13 @@ public static boolean validateWagerInput(){
         Collections.sort(playerOneHand);
         System.out.println(playerOneHand);
     }
+    public void playerWon(){
+        System.out.println("You won " + winnings);
+    }
+    public void playerLost(){
+        if(!doTheyPairPlus && !doTheyAnteBonus)
+            System.out.println("Sorry the dealer won.");
+    }
     public void pairPlusOdds() {
         String RoyalFlush;
         String straightFlush;
@@ -178,27 +192,84 @@ public static boolean validateWagerInput(){
         while(pairPlus && playedHand) {
             switch (playerOneHand) {
                 case RoyalFlush:
-                    if () {}
+                    if () {
+                        winnings = wagerAmount * 100;
+                        balance += winnings;
+                        playerWon();
+
+                    }
                     break;
                 case straightFlush:
-                    if () {}
+                    if () {
+                        winnings = wagerAmount * 40;
+                        balance += winnings;
+                        playerWon();
+                    }
                     break;
                 case threeOfAKind:
-                    if () {}
+                    if () {
+                        winnings = wagerAmount * 130;
+                        balance += winnings;
+                        playerWon();
+                    }
                     break;
                 case straight:
-                    if () {}
+                    if () {
+                        winnings = wagerAmount * 6;
+                        balance += winnings;
+                        playerWon();
+                    }
                     break;
                 case flush:
-                    if () {}
+                    if () {
+                        winnings = wagerAmount * 3;
+                        balance += winnings;
+                        playerWon();
+                    }
                     break;
                 case pair:
-                    if () {}
+                    if () {
+                        winnings = wagerAmount;
+                        balance += winnings;
+                        playerWon();
+                    }
                     break;
                 default:
+                    doTheyPairPlus = false ;
                     break;
             }
         }
+    }
+    public void anteBounsOdds(){
+        String straightFlush;
+        String threeOfAKind;
+        String straight;
+        while(pairPlus && playedHand){
+            switch (playerOneHand){
+                case straightFlush:
+                    if(){
+                        winnings = wagerAmount * 5;
+                        balance += winnings;
+                        playerWon();
+                    }
+                case threeOfAKind:
+                    if(){
+                        winnings = wagerAmount * 4;
+                        balance += winnings;
+                        playerWon();
+                    }
+                case straight:
+                    if(){
+                        winnings = wagerAmount;
+                        balance += winnings;
+                        playerWon();
+                    }
+                case default:
+                    doTheyAnteBonus = false;
+                    break;
+            }
+        }
+
     }
 
 }
