@@ -8,7 +8,7 @@ import java.util.EmptyStackException;
 
 import static org.junit.Assert.*;
 
-public class BlackJackTest {
+public class DeckTest {
   @Test
   public void testDeckConstructor() {
     Deck d = new Deck();
