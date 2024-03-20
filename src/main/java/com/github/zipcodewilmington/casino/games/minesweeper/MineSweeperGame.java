@@ -2,9 +2,11 @@ package com.github.zipcodewilmington.casino.games.minesweeper;
 
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
+import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -15,6 +17,11 @@ public class MineSweeperGame implements GameInterface {
     boolean exit = false;
     IOConsole cons = new IOConsole(AnsiColor.CYAN, System.in, System.out);
     public int gridSize;
+
+    @Override
+    public void add(PlayerInterface player) {
+        this.player = (MineSweeperPlayer) player;
+    }
 
     @Override
     public void run() {
@@ -28,7 +35,7 @@ public class MineSweeperGame implements GameInterface {
                     "If you reveal the entire grid except for the mines, you win!\n");
             char input = cons.getStringInput("Would you like to (p)lay or e(x)it? (p/X)").toLowerCase().charAt(0);
             if (input == 'p') {
-                playGame();
+                playGame(this.player);
             } else {
                 cons.println("Exiting...");
                 break;
@@ -39,8 +46,13 @@ public class MineSweeperGame implements GameInterface {
 
     @Override
     public void run(CasinoAccount curr) {
-        player = new MineSweeperPlayer(curr);
+        this.player = new MineSweeperPlayer(curr);
         run();
+    }
+
+    @Override
+    public void playGame() {
+        playGame(this.player);
     }
 
     public void initGrids() {
@@ -65,8 +77,8 @@ public class MineSweeperGame implements GameInterface {
         }
     }
 
-    @Override
-    public void playGame() {
+//    @Override
+    public void playGame(MineSweeperPlayer player) {
         setGridSize(cons.getIntegerInput("Enter a grid size. "));
         initGrids();
 
@@ -77,6 +89,20 @@ public class MineSweeperGame implements GameInterface {
                 " generated with " + numMines +
                 " mines." + "\nGood luck!");
         while (!exit) {
+            int numQuestions = 0;
+            for (int i = 0; i < revealedGrid.length; i++) {
+                for (int j = 0; j < revealedGrid[i].length; j++) {
+                    if (revealedGrid[i][j] == '?') {
+                        numQuestions++;
+                    }
+                }
+            }
+            if (numQuestions == numMines) {
+                System.out.println("You win!");
+                double newBal = player.getAccount().getBalance() + 50;
+                this.player.getAccount().setBalance(newBal);
+                break;
+            }
             cons.println("Current board state: ");
             cons.println(getBoard());
             action();
