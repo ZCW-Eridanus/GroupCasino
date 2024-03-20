@@ -15,11 +15,11 @@ public class Casino implements Runnable {
 
     @Override
     public void run() {
-        String casinoDashBoardInput;
+        String arcadeDashBoardInput;
         CasinoAccountManager casinoAccountManager = new CasinoAccountManager();
         do {
-            casinoDashBoardInput = getCasinoDashboardInput();
-            if ("select-game".equals(casinoDashBoardInput)) {
+            arcadeDashBoardInput = getArcadeDashboardInput();
+            if ("select-game".equals(arcadeDashBoardInput)) {
                 String accountName = console.getStringInput("Enter your account name:");
                 String accountPassword = console.getStringInput("Enter your account password:");
                 CasinoAccount casinoAccount = casinoAccountManager.getAccount(accountName, accountPassword);
@@ -30,11 +30,11 @@ public class Casino implements Runnable {
                         play(new SlotsGame(), new SlotsPlayer());
                     } else if (gameSelectionInput.equals("NUMBERGUESS")) {
                         play(new NumberGuessGame(), new NumberGuessPlayer());
-                    } else if (gameSelectionInput.equals("MINESWEEPER")) {
-                        play(new MineSweeperGame(), new MineSweeperPlayer(casinoAccount));
-                    } else if (gameSelectionInput.equals("ROULETTE")) {
+                    }
+                    else if (gameSelectionInput.equals("ROULETTE")) {
                         play(new RouletteGame(), new RoulettePlayer(casinoAccount));
-                    } else {
+                    }
+                    else {
                         // TODO - implement better exception handling
                         String errorMessage = "[ %s ] is an invalid game selection";
                         throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
@@ -44,21 +44,21 @@ public class Casino implements Runnable {
                     String errorMessage = "No account found with name of [ %s ] and password of [ %s ]";
                     throw new RuntimeException(String.format(errorMessage, accountPassword, accountName));
                 }
-            } else if ("create-account".equals(casinoDashBoardInput)) {
+            } else if ("create-account".equals(arcadeDashBoardInput)) {
                 console.println("Welcome to the account-creation screen.");
                 String accountName = console.getStringInput("Enter your account name:");
                 String accountPassword = console.getStringInput("Enter your account password:");
                 CasinoAccount newAccount = casinoAccountManager.createAccount(accountName, accountPassword);
                 casinoAccountManager.registerAccount(newAccount);
             }
-        } while (!"logout".equals(casinoDashBoardInput));
+        } while (!"logout".equals(arcadeDashBoardInput));
         casinoAccountManager.writeToFile();
         System.exit(0);
     }
 
-    private String getCasinoDashboardInput() {
+    private String getArcadeDashboardInput() {
         return console.getStringInput(new StringBuilder()
-                .append("Welcome to the Casino Dashboard!")
+                .append("Welcome to the Arcade Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
                 .append("\n\t[ create-account ], [ select-game ], [ logout ]")
                 .toString());
@@ -68,7 +68,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ MINESWEEPER ], [ ROULETTE ]")
+                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ROULETTE]")
                 .toString());
     }
 
