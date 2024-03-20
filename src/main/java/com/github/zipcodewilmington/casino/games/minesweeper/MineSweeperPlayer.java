@@ -12,7 +12,7 @@ public class MineSweeperPlayer implements PlayerInterface {
 
     @Override
     public CasinoAccount getAccount() {
-        return null;
+        return acct;
     }
 
     @Override
