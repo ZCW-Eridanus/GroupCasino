@@ -1,7 +1,6 @@
 package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.*;
-import com.github.zipcodewilmington.casino.games.slots.*;
 import com.github.zipcodewilmington.casino.games.numberguess.*;
 import com.github.zipcodewilmington.casino.games.roulette.*;
 import com.github.zipcodewilmington.casino.games.minesweeper.*;

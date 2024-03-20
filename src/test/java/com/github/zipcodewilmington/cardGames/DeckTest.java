@@ -1,7 +1,7 @@
-package com.github.zipcodewilmington;
+package com.github.zipcodewilmington.cardGames;
 
-import com.github.zipcodewilmington.casino.games.Card;
-import com.github.zipcodewilmington.casino.games.Deck;
+import com.github.zipcodewilmington.casino.games.cardGame.Card;
+import com.github.zipcodewilmington.casino.games.cardGame.Deck;
 import org.junit.Test;
 
 import java.util.EmptyStackException;
@@ -12,7 +12,8 @@ public class DeckTest {
   @Test
   public void testDeckConstructor() {
     Deck d = new Deck();
-    // TODO actually test this
+
+    assertTrue(d instanceof Deck);
   }
 
   @Test

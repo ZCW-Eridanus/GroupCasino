@@ -1,5 +1,6 @@
-package com.github.zipcodewilmington.casino.games;
-import com.github.zipcodewilmington.casino.games.Card.*;
+package com.github.zipcodewilmington.casino.games.cardGame;
+import com.github.zipcodewilmington.casino.games.cardGame.Card;
+import com.github.zipcodewilmington.casino.games.cardGame.Card.*;
 
 import java.util.Collections;
 import java.util.Stack;
@@ -14,8 +15,6 @@ public class Deck {
       for (Ranks r : Ranks.values()){
         Card card = new Card(s, r);
         deck.push(card);
-//        System.out.println(card);
-
       }
     }
 
