@@ -25,7 +25,6 @@ public class BigWheelGame implements GameInterface{
             rulesAndOdds(player);
             setWager(wagerAmount);
             spinTheWheel(player);
-            winningNumber();
             playerWon();
             playerLost();
             endWheelTurn();
@@ -112,6 +111,9 @@ public class BigWheelGame implements GameInterface{
     @Override
     public <T extends PlayerInterface> void exitGame(T player) {
         exitGame((BigWheelPlayer) player);
+    }
+    public int spinTheWheel(){
+
     }
     public void playerWon(){
         System.out.println("You won " + winnings);

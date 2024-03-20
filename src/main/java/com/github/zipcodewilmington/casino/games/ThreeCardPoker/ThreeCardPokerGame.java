@@ -1,12 +1,12 @@
 package com.github.zipcodewilmington.casino.games.ThreeCardPoker;
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
-import com.github.zipcodewilmington.casino.DealerWithDeckOfCards;
+import com.github.zipcodewilmington.casino.Card;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 
 import java.util.*;
 
-public class ThreeCardPokerGame extends DealerWithDeckOfCards implements GameInterface {
+public class ThreeCardPokerGame extends Card implements GameInterface {
 
     public static Scanner scanner = new Scanner(System.in);
     ArrayList<String> playerOneHand = new ArrayList<>();
