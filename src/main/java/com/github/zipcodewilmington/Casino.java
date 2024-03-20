@@ -17,6 +17,7 @@ public class Casino implements Runnable {
     public void run() {
         String casinoDashBoardInput;
         CasinoAccountManager casinoAccountManager = new CasinoAccountManager();
+        casinoAccountManager.readFromFile();
         do {
             casinoDashBoardInput = getCasinoDashboardInput();
             if ("select-game".equals(casinoDashBoardInput)) {
