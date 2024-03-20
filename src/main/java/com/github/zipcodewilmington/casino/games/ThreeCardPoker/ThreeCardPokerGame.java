@@ -6,8 +6,6 @@ import com.github.zipcodewilmington.casino.PlayerInterface;
 
 import java.util.*;
 
-//TODO YOU need to set some parameters
-
 public class ThreeCardPokerGame extends DealerWithDeckOfCards implements GameInterface {
 
     public static Scanner scanner = new Scanner(System.in);
@@ -234,8 +232,11 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
     }
     public void dealPlayerHand(){
         playerCard1 = dealOneCard();
+
          valueOfCard1 = String.valueOf(playerCard1.charAt(0));
+
          suitOfCard1 = String.valueOf(playerCard1.charAt(1));
+
         playerOneHand.add(playerCard1);
         playerCard2 = dealOneCard();
          valueOfCard2 = String.valueOf(playerCard1.charAt(0));
@@ -245,6 +246,7 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
          valueOfCard3 = String.valueOf(playerCard1.charAt(0));
          suitOfCard3 = String.valueOf(playerCard1.charAt(1));
         playerOneHand.add(playerCard2);
+
         Collections.sort(playerOneHand);
 
         System.out.println(playerOneHand);
@@ -269,7 +271,7 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
         {
             switch (playersHand) {
                 case RoyalFlush:
-                    if (3 > 1) {
+                    if () {
                         winnings = wagerAmount * 100;
                         balance += winnings;
                         playerWon();
@@ -277,35 +279,35 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
                     }
                     break;
                 case straightFlush:
-                    if (2 > 1) {
+                    if () {
                         winnings = wagerAmount * 40;
                         balance += winnings;
                         playerWon();
                     }
                     break;
                 case threeOfAKind:
-                    if (33> 1) {
+                    if () {
                         winnings = wagerAmount * 30;
                         balance += winnings;
                         playerWon();
                     }
                     break;
                 case straight:
-                    if (Integer.parseInt(valueOfCard1) +1  == Integer.parseInt(valueOfCard2)  ) {
+                    if () {
                         winnings = wagerAmount * 6;
                         balance += winnings;
                         playerWon();
                     }
                     break;
                 case flush:
-                    if (5> 1) {
+                    if () {
                         winnings = wagerAmount * 3;
                         balance += winnings;
                         playerWon();
                     }
                     break;
                 case pair:
-                    if (6 > 1) {
+                    if () {
                         winnings = wagerAmount;
                         balance += winnings;
                         playerWon();
@@ -347,5 +349,5 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
             }
         }
     }
-
+//Ethan
 }
