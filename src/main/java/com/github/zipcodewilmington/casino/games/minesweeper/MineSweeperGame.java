@@ -14,6 +14,7 @@ public class MineSweeperGame implements GameInterface {
     char[][] revealedGrid;
     boolean exit = false;
     IOConsole cons = new IOConsole(AnsiColor.CYAN, System.in, System.out);
+    public int gridSize;
 
     @Override
     public void run() {
@@ -42,28 +43,37 @@ public class MineSweeperGame implements GameInterface {
         run();
     }
 
-    @Override
-    public void playGame() {
-        int size = cons.getIntegerInput("Enter a grid size. ");
-        mineGrid = new boolean[size][size];
-        revealedGrid = new char[size][size];
-        for (int i = 0; i < size; i++) {
+    public void initGrids() {
+        mineGrid = new boolean[gridSize][gridSize];
+        revealedGrid = new char[gridSize][gridSize];
+        for (int i = 0; i < gridSize; i++) {
             Arrays.fill(mineGrid[i], false);
             Arrays.fill(revealedGrid[i], '?');
         }
+    }
 
-        int numMines = cons.getIntegerInput("How many mines would you like? ");
+    public void createMines(int numMines) {
         Random rng = new Random(System.currentTimeMillis());
 
         for (int i = 0; i < numMines; i++) {
-            int row = rng.nextInt(size), col = rng.nextInt(size);
+            int row = rng.nextInt(gridSize), col = rng.nextInt(gridSize);
             while (mineGrid[row][col]) {
-                row = rng.nextInt(size);
-                col = rng.nextInt(size);
+                row = rng.nextInt(gridSize);
+                col = rng.nextInt(gridSize);
             }
             mineGrid[row][col] = true;
         }
-        cons.println("Board of size " + size +
+    }
+
+    @Override
+    public void playGame() {
+        setGridSize(cons.getIntegerInput("Enter a grid size. "));
+        initGrids();
+
+        int numMines = cons.getIntegerInput("How many mines would you like? ");
+        createMines(numMines);
+
+        cons.println("Board of size " + gridSize +
                 " generated with " + numMines +
                 " mines." + "\nGood luck!");
         while (!exit) {
@@ -325,5 +335,13 @@ public class MineSweeperGame implements GameInterface {
     @Override
     public void exitGame() {
         this.player = null;
+    }
+
+    public void setGridSize(int newSize) {
+        this.gridSize = newSize;
+    }
+
+    public char getCell(int row, int col) {
+        return revealedGrid[row][col];
     }
 }
