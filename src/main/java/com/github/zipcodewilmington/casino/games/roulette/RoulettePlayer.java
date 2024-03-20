@@ -1,22 +1,26 @@
-package com.github.zipcodewilmington.casino.games.minesweeper;
+package com.github.zipcodewilmington.casino.games.roulette;
 
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 
-public class MineSweeperPlayer implements PlayerInterface {
-    CasinoAccount acct;
+public class RoulettePlayer implements PlayerInterface {
+    public CasinoAccount account;
 
-    public MineSweeperPlayer(CasinoAccount acct) {
-        this.acct = acct;
+
+
+    public RoulettePlayer(CasinoAccount acct) {
+        this.account = acct;
     }
 
     @Override
     public CasinoAccount getAccount() {
-        return acct;
+        return account;
     }
 
     @Override
     public <SomeReturnType> SomeReturnType play() {
         return null;
     }
+
+
 }
