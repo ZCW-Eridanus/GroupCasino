@@ -1,4 +1,4 @@
-package BlackJackTest;
+package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.games.Card;
 import com.github.zipcodewilmington.casino.games.Deck;
