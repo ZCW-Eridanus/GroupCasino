@@ -105,3 +105,5 @@ public class Card {
     return rankString + suitSymbol;
   }
 }
+
+// this should be good to go Ethan
