@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class HandTest {
 
 @Test
-public void testCardAdded() {
+public void testCardAdded() { // hands should be receiving cards from hand.addCard(deck.dealCard)
   Hand h = new Hand();
   Deck d = new Deck();
 
@@ -20,11 +20,24 @@ public void testCardAdded() {
   Integer expected = 1;
   Integer actual = h.size();
 
-  for (int i = 0; i < 2; i++) {
-    h.addCard(d.dealCard());
-  }
-  System.out.println(h);
+
+
+  Assert.assertEquals(expected, actual);
+}
+
+@Test
+public void testHandIsEmpty() { // when we initiate a new hand in each instance of a game, it should be empty
+  Hand h = new Hand();
+  Deck d = new Deck();
+
+  Integer expected = 0;
+  Integer actual = h.size();
 
   Assert.assertEquals(expected, actual);
 }
 }
+
+ /* for (int i = 0; i < 2; i++) {
+  h.addCard(d.dealCard());
+  }
+  System.out.println(h); */  // put this in one of the values if you'd like to physically see a card in a deck! -Trey & Jacob

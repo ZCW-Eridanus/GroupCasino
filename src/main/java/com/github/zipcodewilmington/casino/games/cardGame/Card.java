@@ -25,7 +25,7 @@ public class Card {
     KING,
     ACE;
   }
-  public Card(Suits suit, Ranks rank) {
+  public Card(Suits suit, Ranks rank) { // i need to check the cards for value by rank
     this.suit = suit;
     this.rank = rank;
   }

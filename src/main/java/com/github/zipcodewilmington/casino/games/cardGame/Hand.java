@@ -2,13 +2,11 @@ package com.github.zipcodewilmington.casino.games.cardGame;
 
 import java.util.ArrayList;
 
-public class Hand {
+public class Hand extends ArrayList<Card>{
   ArrayList<Card> hand = new ArrayList<>();
 
   public boolean addCard(Card card) {
-    Deck deck = new Deck();
-
-    hand.add(deck.dealCard());
+    hand.add(card);
     return true;
   }
 
