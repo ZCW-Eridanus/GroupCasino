@@ -76,6 +76,27 @@ public class CasinoAccountManager implements Serializable {
         }
     }
 
+    public void readFromFile() {
+        File input = new File("./accountMgr.ser");
+        FileInputStream fis;
+        ObjectInputStream ois;
+        try {
+            fis = new FileInputStream(input);
+            ois = new ObjectInputStream(fis);
+            CasinoAccountManager oldAccountMgr = (CasinoAccountManager) ois.readObject();
+            this.accounts.putAll(oldAccountMgr.accounts);
+        } catch (FileNotFoundException ignored) {
+            System.out.println("Account manager serial file not found.\n" +
+                    "Skipping reconstruction.");
+        } catch (IOException e) {
+            System.out.println("An I/O error occurred while trying to recreate casino accounts.");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Account Manager class not found in Account Manager serial file.\n" +
+                    "Skipping reconstruction.");
+        }
+    }
+
     public void writeToFile() {
         File output = new File("./accountMgr.ser");
         FileOutputStream fos;
