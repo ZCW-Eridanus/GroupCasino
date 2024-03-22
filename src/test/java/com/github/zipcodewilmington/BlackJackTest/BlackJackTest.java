@@ -36,27 +36,6 @@ public void bustTest() {
 
 }
 
-@Test
-public void blackJackCheckTest() {
-Deck d = new Deck();
-Hand playerHand = new Hand();
-
-}
-
-@Test
-public void splitCheckTest() {
-
-}
-
-@Test
-public void isAceTest() {
-
-}
-
-@Test
-public void isJQK() {
-
-}
 
 @Test
 public void changeJQKValueTest() {

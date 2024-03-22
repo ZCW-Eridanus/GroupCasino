@@ -54,11 +54,16 @@ public class BlackJack implements GameInterface {
     run();
   }
 
+  @Override
+  public <T extends PlayerInterface> char playGame(T player) {
+    return 0;
+  }
+
   public void initializeHands() {
     int score = 0;
 
-    BJPlayerHand = BJPlayer.getHand();
-    BJDealerHand = BJDealer.getHand();
+//    BJPlayerHand = BJPlayer.getHand();
+//    BJDealerHand = BJDealer.getHand();
 
     score = BJDealerHand.addValuedCard(BJDealer.hit()); // score is equal to first card added
 
@@ -76,12 +81,15 @@ public class BlackJack implements GameInterface {
   }
 
 
-  @Override
+
   public void playGame() {
     playGame(this.BJPlayer, this.BJDealer);
   }
 
   public void playGame(BlackJackPlayer BJPlayer, BlackJackPlayer BJDealer) {
+    BJPlayerHand = BJPlayer.getHand();
+    BJDealerHand = BJDealer.getHand();
+
     initializeHands();
 
     getDealerScore();
@@ -97,7 +105,7 @@ public class BlackJack implements GameInterface {
   }
 
   public void getDealerScore() {
-    System.out.println("The dealer's current score is ... " + hiddenDealerScore);
+    System.out.println("The dealer's current score is ... " + dealerScore);
   }
 
   public void getPlayerScore() {
@@ -117,68 +125,102 @@ public class BlackJack implements GameInterface {
 
   }
 
+  @Override
+  public <T extends PlayerInterface> void action(T player) {
 
-  public boolean checkWinOrLoss() {
-    if (playerScore < 21 || hiddenDealerScore < playerScore) {
-      System.out.println("You win!");
-      exitGame();
-    } else {
-      System.out.println("You lose.");
-    }
-    return false;
   }
 
+  @Override
+  public <T extends PlayerInterface> void exitGame(T player) {
+
+  }
+
+
+  public boolean checkWinOrLoss() {
+    if (playerScore < 21 || hiddenDealerScore < playerScore || (BJDealer.isBusted(hiddenDealerScore) && !BJPlayer.isBusted(playerScore))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   public void dealersChoice() {
     if (hiddenDealerScore <= 15) {
       BJDealerHand.addValuedCard(BJDealer.hit());
     } else {
-      action();
+      BJDealer.stay();
     }
   }
-  // method just for dealer
-  // if you have a score less than 15, hit
-  // if you have a score more than 15, stay
 
 
-  @Override
   public void action() {
-  while (true) {
+    while (true) { // while true is not the right loop to do, the actual method doesn't end
       String input = cons.getStringInput("Would you like to hit or stay?");
       if (input.equals("stay")) {
         getBJPlayerHand();
         BJPlayer.stay();
         getPlayerScore();
         dealersChoice();
+        break;
 
-      }
-      else if(input.equals("hit")) {
-        BJPlayerHand.addValuedCard(BJPlayer.hit());
+      } else if (input.equals("hit")) {
+        playerScore += BJPlayerHand.addValuedCard(BJPlayer.hit());
         getBJPlayerHand();
         getPlayerScore();
         dealersChoice();
 
       }
-      checkWinOrLoss();
-
-  }
-  // if says yes to stay
-  // the player doesn't get a card and the score is printed,
-  // but the dealer's method is still ran
-  // if says yes to hit
-  // player gets another card,
-  // and the method for whether the dealer is going to hit or stay is ran.
-  // check if someone won or lost
-  // if no one win/loss is false,
-  // redo the loop
-  // if win/loss is true
-  //
+      if (BJPlayer.isBusted(playerScore)) {
+        break;
+      }
+    }
+    if (!checkWinOrLoss()) {
+      cons.println("You lost...");
+    } else {
+      cons.println("You won...");
+    }
   }
 
-  @Override
+
+  public void youWon() {
+    while (checkWinOrLoss() == true) {
+      cons.println("You win!");
+      char input = cons.getStringInput("Would you like to play again? Type Y for Yes, any other key will return you to the menu. \n").toLowerCase().charAt(0);
+      if (input == 'y') {
+        playGame();
+      } else {
+        exitGame();
+      }
+    }
+  }
+
+
+  public void youLost() {
+    while (checkWinOrLoss() == false) {
+      cons.println("You lost!");
+      char input = cons.getStringInput("Would you like to play again? Type Y for Yes, any other key will return you to the menu. \n").toLowerCase().charAt(0);
+      if (input == 'y') {
+        playGame();
+      } else {
+        exitGame();
+      }
+    }
+  }
+
+
   public void exitGame() {
     this.BJPlayer = null;
   }
-
-
 }
+
+// if says yes to stay
+// the player doesn't get a card and the score is printed,
+// but the dealer's method is still ran
+// if says yes to hit
+// player gets another card,
+// and the method for whether the dealer is going to hit or stay is ran.
+// check if someone won or lost
+// if no one win/loss is false,
+// redo the loop
+// if win/loss is true
+//

@@ -65,7 +65,9 @@ public class BlackJackPlayer implements PlayerInterface {
   }
 
 
-
+  public boolean isBusted(int score) {
+    return score > 21;
+  }
 
 
 
