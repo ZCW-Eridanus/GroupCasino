@@ -17,6 +17,17 @@ public class RouletteGame implements GameInterface {
     public RouletteGame(){
         casinoAccount.setBalance(2500.0);
         this.balance = casinoAccount.getBalance();
+        this.setDozen1(new ArrayList<>());
+        this.setDozen2(new ArrayList<>());
+        this.setDozen3(new ArrayList<>());
+        this.setBlackNumbers(new ArrayList<>());
+        this.setHigh(new ArrayList<>());
+        this.setLow(new ArrayList<>());
+        this.setSingle(new ArrayList<>());
+        this.setColumn1(new ArrayList<>());
+        this.setColumn2(new ArrayList<>());
+        this.setColumn3(new ArrayList<>());
+        this.setRedNumbers(new ArrayList<>());
     }
 
     private String red = String.valueOf(AnsiColor.RED);
@@ -37,11 +48,19 @@ public class RouletteGame implements GameInterface {
     int spin = random.nextInt(37);
 
     public void setBlackNumbers(List<Integer> blackNumbers) {
-        blackNumbers.add(1);
+        numberOnTheBlack.addAll(new ArrayList<>(List.of(2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35)));
+    }
+
+    public void setRedNumbers(List<Integer> redNumbers) {
+        numbersOnTheRed.addAll(new ArrayList<>(List.of(1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36)));
     }
 
     public List<Integer> getBlackNumbers() {
         return numberOnTheBlack;
+    }
+
+    public List<Integer> getRedNumbers() {
+        return numbersOnTheRed;
     }
 
     public double betWithColorRed(int number, int wager){
