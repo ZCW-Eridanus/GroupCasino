@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.*;
+import com.github.zipcodewilmington.casino.games.BigWheel.BigWheelGame;
 import com.github.zipcodewilmington.casino.games.numberguess.*;
 import com.github.zipcodewilmington.casino.games.roulette.*;
 import com.github.zipcodewilmington.casino.games.minesweeper.*;
@@ -27,7 +28,10 @@ public class Casino implements Runnable {
                 boolean isValidLogin = casinoAccount != null;
                 if (isValidLogin) {
                     String gameSelectionInput = getGameSelectionInput().toUpperCase();
-                    if (gameSelectionInput.equals("NUMBERGUESS")) {
+                  
+                    if(gameSelectionInput.equals("BIGWHEEL")) {
+                        play(new BigWheelGame(), new NumberGuessPlayer());
+                    } else if (gameSelectionInput.equals("NUMBERGUESS")) {
                         play(new NumberGuessGame(), new NumberGuessPlayer());
                     } else if (gameSelectionInput.equals("MINESWEEPER")) {
                         play(new MineSweeperGame(), new MineSweeperPlayer(casinoAccount));
@@ -69,7 +73,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ MINESWEEPER ], [ ROULETTE ], [ THREE CARD POKER ]")
+                .append("\n\t[ NUMBERGUESS ], [ MINESWEEPER ], [ ROULETTE ], [ THREE CARD POKER ]")
                 .toString());
     }
 
