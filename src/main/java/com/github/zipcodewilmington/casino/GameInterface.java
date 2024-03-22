@@ -1,5 +1,7 @@
 package com.github.zipcodewilmington.casino;
 
+import com.github.zipcodewilmington.casino.games.ThreeCardPoker.ThreeCardPokerPlayer;
+
 import java.util.ArrayList;
 
 /**
@@ -31,11 +33,11 @@ public interface GameInterface extends Runnable {
 
     void run(CasinoAccount acct);
 
-    void playGame();
+    <T extends PlayerInterface> char playGame(T player);
 
     void setWager(int wager);
 
-    void action();
+    <T extends PlayerInterface> void action(T player);
 
-    void exitGame();
+    <T extends PlayerInterface> void exitGame(T player);
 }

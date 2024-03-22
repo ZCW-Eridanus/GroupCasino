@@ -41,7 +41,7 @@ public class MineSweeperGame implements GameInterface {
                 break;
             }
         }
-        exitGame();
+        exitGame(this.player);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MineSweeperGame implements GameInterface {
         this.player = new MineSweeperPlayer(curr);
         run();
     }
-
+  
     @Override
     public void playGame() {
         playGame(this.player);
@@ -107,6 +107,7 @@ public class MineSweeperGame implements GameInterface {
             cons.println(getBoard());
             action();
         }
+        return 0;
     }
 
     public boolean checkCell(int row, int col) {
@@ -359,7 +360,11 @@ public class MineSweeperGame implements GameInterface {
     }
 
     @Override
-    public void exitGame() {
+    public <T extends PlayerInterface> void exitGame(T player) {
+        exitGame((MineSweeperPlayer) player);
+    }
+
+    public void exitGame(MineSweeperPlayer player) {
         this.player = null;
     }
 
