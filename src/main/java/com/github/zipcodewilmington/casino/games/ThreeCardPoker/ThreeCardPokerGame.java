@@ -264,84 +264,71 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
     }
     private int getHighCardRank(Hand hand) {
         int rank = 0;
-        for (Card card : hand.getCards()) {
+        for (Card card : hand) {
             rank = Math.max(rank, getCardRank(card));
         }
         return rank;
     }
     private int getCardRank(Card card) {
-        // Assign ranks to each card
-        switch (card.getRank()) {
-            case "A":
-                return 14; // Ace is the highest card
-            case "K":
+        switch (card.toString().charAt(0)) {
+            case 'A':
+                return 14;
+            case 'K':
                 return 13;
-            case "Q":
+            case 'Q':
                 return 12;
-            case "J":
+            case 'J':
                 return 11;
             default:
-                return Integer.parseInt(card.getRank());
+                return Integer.parseInt(String.valueOf(card));
         }
     }
-
-
-
-
     public void pairPlusOdds() {
         while(pairPlus && didTheyPlayHand) {
-            switch(playerHand) {
-                case royalFlush:
-                    if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)
-                            && playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1)) {
-                        royalFlush = true;
-                        winnings = pairPlusWagerAmount * 100;
-                        balance += winnings;
-                    }
-                    break;
-                case straightFlush:
-                    if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)
-                            && playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1)) {
-                        straightFlush = true;
-                        winnings = pairPlusWagerAmount * 40;
-                        balance += winnings;
-                    }
-                    break;
-                case threeOfAKind:
-                    if (playerCard1.charAt(0) == playerCard2.charAt(0) && playerCard1.charAt(0) == playerCard3.charAt(0)) {
-                        threeOfAKind = true;
-                        winnings = pairPlusWagerAmount * 30;
-                        balance += winnings;
-                    }
-                    break;
-                case straight:
-                    if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)) {
-                        straight = true;
-                        winnings = pairPlusWagerAmount * 6;
-                        balance += winnings;
-                    }
-                    break;
-                case flush:
-                    if (playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1)) {
-                        flush = true;
-                        winnings = pairPlusWagerAmount * 3;
-                        balance += winnings;
-                    }
-                    break;
-                case pair:
-                    if (playerCard1.charAt(0) == playerCard2.charAt(0) || playerCard1.charAt(0) == playerCard3.charAt(0)
-                            || playerCard2.charAt(0) == playerCard3.charAt(0)) {
-                        pair = true;
-                        winnings = pairPlusWagerAmount;
-                        balance += winnings;
-                    }
-                    break;
-                default:
-                    doTheyPairPlus = false;
-                    break;
+            if (Objects.requireNonNull(playerHand).equals(royalFlush)) {
+                if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)
+                        && playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1)) {
+                    royalFlush = true;
+                    winnings = pairPlusWagerAmount * 100;
+                    balance += winnings;
+                }
+            } else if (playerHand.equals(straightFlush)) {
+                if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)
+                        && playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1)) {
+                    straightFlush = true;
+                    winnings = pairPlusWagerAmount * 40;
+                    balance += winnings;
+                }
+            } else if (playerHand.equals(threeOfAKind)) {
+                if (playerCard1.charAt(0) == playerCard2.charAt(0) && playerCard1.charAt(0) == playerCard3.charAt(0)) {
+                    threeOfAKind = true;
+                    winnings = pairPlusWagerAmount * 30;
+                    balance += winnings;
+                }
+            } else if (playerHand.equals(straight)){
+                if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)) {
+                    straight = true;
+                    winnings = pairPlusWagerAmount * 6;
+                    balance += winnings;
+                }
+            } else if (playerHand.equals(flush)) {
+                if (playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1)) {
+                    flush = true;
+                    winnings = pairPlusWagerAmount * 3;
+                    balance += winnings;
+                }
+            } else if (playerHand.equals(pair)) {
+                if (playerCard1.charAt(0) == playerCard2.charAt(0) || playerCard1.charAt(0) == playerCard3.charAt(0)
+                        || playerCard2.charAt(0) == playerCard3.charAt(0)) {
+                    pair = true;
+                    winnings = pairPlusWagerAmount;
+                    balance += winnings;
+                }
+            } else {
+                doTheyPairPlus = false;
             }
         }
     }
@@ -349,79 +336,90 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
 
     public void anteBonusOdds(){
         while(didTheyPlayHand){
-            switch (playerHand){
-                case straightFlushAnte:
-                    if((Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)
-                            && playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1))){
-                        straightFlushAnte = true;
-                        winnings = playWagerAmount * 5;
-                        balance += winnings;
-                    }
-                case threeOfAKindAnte:
-                    if(playerCard1.charAt(0) == playerCard2.charAt(0) && playerCard1.charAt(0) == playerCard3.charAt(0)){
-                        threeOfAKindAnte = true;
-                        winnings = playWagerAmount * 4;
-                        balance += winnings;
-                    }
-                case straightAnte:
-                    if(Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)){
-                        straightAnte = true;
-                        winnings = playWagerAmount;
-                        balance += winnings;
-                    }
-                case default:
-                    doTheyAnteBonus = false;
-                    break;
+            if (Objects.requireNonNull(playerHand).equals(straightFlushAnte)) {
+                if ((Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)
+                        && playerCard1.charAt(1) == playerCard2.charAt(1) && playerCard1.charAt(1) == playerCard3.charAt(1))) {
+                    straightFlushAnte = true;
+                    winnings = playWagerAmount * 5;
+                    balance += winnings;
+                }
+
+                if (playerCard1.charAt(0) == playerCard2.charAt(0) && playerCard1.charAt(0) == playerCard3.charAt(0)) {
+                    threeOfAKindAnte = true;
+                    winnings = playWagerAmount * 4;
+                    balance += winnings;
+                }
+
+                if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)) {
+                    straightAnte = true;
+                    winnings = playWagerAmount;
+                    balance += winnings;
+                }
+            } else if (playerHand.equals(threeOfAKindAnte)){
+                if (playerCard1.charAt(0) == playerCard2.charAt(0) && playerCard1.charAt(0) == playerCard3.charAt(0)) {
+                    threeOfAKindAnte = true;
+                    winnings = playWagerAmount * 4;
+                    balance += winnings;
+                }
+
+                if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)) {
+                    straightAnte = true;
+                    winnings = playWagerAmount;
+                    balance += winnings;
+                }
+            } else if (playerHand.equals(straightAnte)) {
+                if (Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(playerCard1.substring(0, 1)) == Integer.parseInt(playerCard3.substring(0, 1) + 2)) {
+                    straightAnte = true;
+                    winnings = playWagerAmount;
+                    balance += winnings;
+                }
             }
+            doTheyAnteBonus = false;
         }
     }
     public void dealerHandGrade() {
         while(pairPlus && didTheyPlayHand) {
-            switch(dealerHand) {
-                case royalFlush:
-                    if (Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard3.substring(0, 1) + 2)
-                            && dealerCard1.charAt(1) == dealerCard2.charAt(1) && dealerCard1.charAt(1) == dealerCard3.charAt(1)) {
-                        dealerRoyalFlush = true;
-                    }
-                    break;
-                case straightFlush:
-                    if (Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard3.substring(0, 1) + 2)
-                            && dealerCard1.charAt(1) == dealerCard2.charAt(1) && dealerCard1.charAt(1) == dealerCard3.charAt(1)) {
-                        dealerStraightFlush = true;
-                    }
-                    break;
-                case threeOfAKind:
-                    if (dealerCard1.charAt(0) == dealerCard2.charAt(0) && dealerCard1.charAt(0) == dealerCard3.charAt(0)) {
-                        dealerThreeOfAKind = true;
-                    }
-                    break;
-                case straight:
-                    if (Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard2.substring(0, 1) + 1) &&
-                            Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard3.substring(0, 1) + 2)) {
-                        dealerStraight = true;
-                    }
-                    break;
-                case flush:
-                    if (dealerCard1.charAt(1) == dealerCard2.charAt(1) && dealerCard1.charAt(1) == dealerCard3.charAt(1)) {
-                        dealerFlush = true;
-                    }
-                    break;
-                case pair:
-                    if (dealerCard1.charAt(0) == dealerCard2.charAt(0) || dealerCard1.charAt(0) == dealerCard3.charAt(0)
-                            || dealerCard2.charAt(0) == dealerCard3.charAt(0)) {
-                        dealerPair = true;
-                    }
-                    break;
-                case eligibleToPlay:
-                    if(playerCard3.charAt(0)== 'Q'|| playerCard3.charAt(0)== 'K'||playerCard3.charAt(0)== 'A')
-                        eligibleToPlay = true;
-                default:
-                   eligibleToPlay = false;
-                    break;
+            if (Objects.requireNonNull(dealerHand.equals(royalFlush))) {
+                if (Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard3.substring(0, 1) + 2)
+                        && dealerCard1.charAt(1) == dealerCard2.charAt(1) && dealerCard1.charAt(1) == dealerCard3.charAt(1)) {
+                    dealerRoyalFlush = true;
+                }
+            } else if (dealerHand.equals(straightFlush)) {
+                if (Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard3.substring(0, 1) + 2)
+                        && dealerCard1.charAt(1) == dealerCard2.charAt(1) && dealerCard1.charAt(1) == dealerCard3.charAt(1)) {
+                    dealerStraightFlush = true;
+                }
+            } else if (dealerHand.equals(threeOfAKind)) {
+                if (dealerCard1.charAt(0) == dealerCard2.charAt(0) && dealerCard1.charAt(0) == dealerCard3.charAt(0)) {
+                    dealerThreeOfAKind = true;
+                }
+            } else if (dealerHand.equals(straight)) {
+                if (Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard2.substring(0, 1) + 1) &&
+                        Integer.parseInt(dealerCard1.substring(0, 1)) == Integer.parseInt(dealerCard3.substring(0, 1) + 2)) {
+                    dealerStraight = true;
+                }
+            } else if (dealerHand.equals(flush)) {
+                if (dealerCard1.charAt(1) == dealerCard2.charAt(1) && dealerCard1.charAt(1) == dealerCard3.charAt(1)) {
+                    dealerFlush = true;
+                }
+            } else if (dealerHand.equals(pair)){
+                if (dealerCard1.charAt(0) == dealerCard2.charAt(0) || dealerCard1.charAt(0) == dealerCard3.charAt(0)
+                        || dealerCard2.charAt(0) == dealerCard3.charAt(0)) {
+                    dealerPair = true;
+                }
+            } else if (dealerHand.equals(eligibleToPlay)) {
+                if (playerCard3.charAt(0) == 'Q' || playerCard3.charAt(0) == 'K' || playerCard3.charAt(0) == 'A')
+                    eligibleToPlay = true;
+
+                eligibleToPlay = false;
+            } else {
+                eligibleToPlay = false;
             }
         }
     } private boolean isRoyalFlush(Hand hand) {
