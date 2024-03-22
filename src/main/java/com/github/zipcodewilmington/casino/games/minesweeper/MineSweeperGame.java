@@ -6,7 +6,6 @@ import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -16,7 +15,9 @@ public class MineSweeperGame implements GameInterface {
     char[][] revealedGrid;
     boolean exit = false;
     IOConsole cons = new IOConsole(AnsiColor.CYAN, System.in, System.out);
-    public int gridSize;
+    int gridSize;
+    int wager;
+
 
     @Override
     public void add(PlayerInterface player) {
@@ -56,20 +57,17 @@ public class MineSweeperGame implements GameInterface {
         return '\n';
     }
 
-    public void playGame() {
-        playGame(this.player);
-    }
-
-    public void initGrids() {
+    public boolean initGrids() {
         mineGrid = new boolean[gridSize][gridSize];
         revealedGrid = new char[gridSize][gridSize];
         for (int i = 0; i < gridSize; i++) {
             Arrays.fill(mineGrid[i], false);
             Arrays.fill(revealedGrid[i], '?');
         }
+        return mineGrid.length == gridSize;
     }
 
-    public void createMines(int numMines) {
+    public boolean createMines(int numMines) {
         Random rng = new Random(System.currentTimeMillis());
 
         for (int i = 0; i < numMines; i++) {
@@ -80,6 +78,7 @@ public class MineSweeperGame implements GameInterface {
             }
             mineGrid[row][col] = true;
         }
+        return true;
     }
 
 //    @Override
@@ -110,7 +109,7 @@ public class MineSweeperGame implements GameInterface {
             }
             cons.println("Current board state: ");
             cons.println(getBoard());
-            action();
+            action(player);
         }
         return 0;
     }
@@ -259,7 +258,7 @@ public class MineSweeperGame implements GameInterface {
         return Character.forDigit(retVal, 10);
     }
 
-    public void revealNeighbors(int row, int col) {
+    public boolean revealNeighbors(int row, int col) {
         if (row > 0 && row < mineGrid.length - 1) {
             if (col > 0 && col < mineGrid[row].length - 1) {
                 // the " + 0"'s are only there to make it look pretty because everything is neatly lined up
@@ -319,6 +318,7 @@ public class MineSweeperGame implements GameInterface {
                 revealedGrid[row - 1][col + 0] = checkNeighbors(row - 1, col + 0);
             }
         }
+        return true;
     }
 
     public String getBoard() {
@@ -340,18 +340,24 @@ public class MineSweeperGame implements GameInterface {
     @Override
     public void setWager(int wager) {
         // This one does nothing at the moment
+        this.wager = wager;
     }
 
     @Override
     public <T extends PlayerInterface> void action(T player) {
-
+        action(false, "");
     }
 
-    public void action() {
-        String cell = cons.getStringInput("Please select a cell, or type X to eXit. (ex 0, 0)");
+    public int action(boolean isTesting, String input) {
+        String cell = "0, 0";
+        if (!isTesting) {
+            cell = cons.getStringInput("Please select a cell, or type X to eXit. (ex 0, 0)");
+        } else if (!input.isEmpty()) {
+            cell = input;
+        }
         if (cell.equals("X")) {
             exit = true;
-            return;
+            return 0;
         }
         String[] rowCol = cell.split(",");
         rowCol[0] = rowCol[0].trim();
@@ -360,12 +366,14 @@ public class MineSweeperGame implements GameInterface {
         if (checkCell(row, col)) {
             exit = true;
             cons.println("You've hit a mine! Returning to game menu...");
+            return -1;
         } else {
             revealedGrid[row][col] = checkNeighbors(row, col);
             if (revealedGrid[row][col] == '0') {
                 revealNeighbors(row, col);
             }
         }
+        return 1;
     }
 
     @Override
@@ -373,15 +381,26 @@ public class MineSweeperGame implements GameInterface {
         exitGame((MineSweeperPlayer) player);
     }
 
-    public void exitGame(MineSweeperPlayer player) {
+    public boolean exitGame(MineSweeperPlayer player) {
         this.player = null;
+        player = null;
+        return true;
     }
 
-    public void setGridSize(int newSize) {
+    public int setGridSize(int newSize) {
         this.gridSize = newSize;
+        return newSize;
     }
 
     public char getCell(int row, int col) {
         return revealedGrid[row][col];
+    }
+
+    public int getWager() {
+        return this.wager;
+    }
+
+    public MineSweeperPlayer getPlayer() {
+        return this.player;
     }
 }
