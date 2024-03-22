@@ -5,7 +5,6 @@ import com.github.zipcodewilmington.casino.games.BigWheel.BigWheelGame;
 import com.github.zipcodewilmington.casino.games.numberguess.*;
 import com.github.zipcodewilmington.casino.games.roulette.*;
 import com.github.zipcodewilmington.casino.games.minesweeper.*;
-import com.github.zipcodewilmington.casino.games.ThreeCardPoker.*;
 import com.github.zipcodewilmington.utils.*;
 
 /**
@@ -37,8 +36,6 @@ public class Casino implements Runnable {
                         play(new MineSweeperGame(), new MineSweeperPlayer(casinoAccount));
                     } else if (gameSelectionInput.equals("ROULETTE")) {
                         play(new RouletteGame(), new RoulettePlayer(casinoAccount));
-                    } else if (gameSelectionInput.equals("THREE CARD POKER")) {
-                        play(new ThreeCardPokerGame(), new ThreeCardPokerPlayer(casinoAccount));
                     } else {
                         // TODO - implement better exception handling
                         String errorMessage = "[ %s ] is an invalid game selection";
