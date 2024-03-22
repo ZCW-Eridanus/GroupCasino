@@ -49,8 +49,13 @@ public class MineSweeperGame implements GameInterface {
         this.player = new MineSweeperPlayer(curr);
         run();
     }
-  
+
     @Override
+    public <T extends PlayerInterface> char playGame(T player) {
+        playGame((MineSweeperPlayer) player);
+        return '\n';
+    }
+
     public void playGame() {
         playGame(this.player);
     }
@@ -78,7 +83,7 @@ public class MineSweeperGame implements GameInterface {
     }
 
 //    @Override
-    public void playGame(MineSweeperPlayer player) {
+    public int playGame(MineSweeperPlayer player) {
         setGridSize(cons.getIntegerInput("Enter a grid size. "));
         initGrids();
 
@@ -338,6 +343,10 @@ public class MineSweeperGame implements GameInterface {
     }
 
     @Override
+    public <T extends PlayerInterface> void action(T player) {
+
+    }
+
     public void action() {
         String cell = cons.getStringInput("Please select a cell, or type X to eXit. (ex 0, 0)");
         if (cell.equals("X")) {

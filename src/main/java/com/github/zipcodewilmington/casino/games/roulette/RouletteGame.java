@@ -12,10 +12,10 @@ public class RouletteGame implements GameInterface {
     public   int wager;
 
     public CasinoAccount casinoAccount = new CasinoAccount();
-    private int balance;
+    private double balance;
 
     public RouletteGame(){
-        casinoAccount.setBalance(2500);
+        casinoAccount.setBalance(2500.0);
         this.balance = casinoAccount.getBalance();
     }
 
@@ -44,7 +44,7 @@ public class RouletteGame implements GameInterface {
         return numberOnTheBlack;
     }
 
-    public int betWithColorRed(int number, int wager){
+    public double betWithColorRed(int number, int wager){
         setBlackNumbers(numberOnTheBlack);
         if(numberOnTheBlack.contains(number)){
             balance = balance - wager;
@@ -57,7 +57,7 @@ public class RouletteGame implements GameInterface {
     }
 
 
-    public int betWithColorBlack(int number,int wager){
+    public double betWithColorBlack(int number,int wager){
         setBlackNumbers(numberOnTheBlack);
         if(numberOnTheBlack.contains(number)){
             balance = balance - wager;
@@ -68,7 +68,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithEvenNumber(int number,int wager){
+    public double betWithEvenNumber(int number,int wager){
         if(number%2==0&&number!=0){
             balance = balance - wager;
             return  balance = balance + 2 * wager;
@@ -78,7 +78,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithOddNumber(int number, int wager){
+    public double betWithOddNumber(int number, int wager){
 
         if(number % 2 != 0){
             balance = balance - wager;
@@ -89,7 +89,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithLow(int number, int wager){
+    public double betWithLow(int number, int wager){
         setLow(low);
         if(low.contains(number)){
             balance = balance - wager;
@@ -97,7 +97,7 @@ public class RouletteGame implements GameInterface {
         }
         return balance;
     }
-    public int betWithHigh(int number, int wager){
+    public double betWithHigh(int number, int wager){
         setHigh(high);
         if(high.contains(number)){
             balance = balance - wager;
@@ -106,7 +106,7 @@ public class RouletteGame implements GameInterface {
         return balance;
     }
 
-    public int betWithColumn1(int number,int wager){
+    public double betWithColumn1(int number,int wager){
         setColumn1(column1);
         if(getColumn1().contains(number)){
             balance = balance - wager;
@@ -117,7 +117,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithColumn2(int number,int wager){
+    public double betWithColumn2(int number,int wager){
         setColumn2(column2);
         if(getColumn2().contains(number)){
             balance = balance - wager;
@@ -127,7 +127,7 @@ public class RouletteGame implements GameInterface {
             return balance;
         }
     }
-    public int betWithColumn3(int number,int wager){
+    public double betWithColumn3(int number,int wager){
         setColumn3(column3);
         if(getColumn3().contains(number)){
             balance = balance - wager;
@@ -138,7 +138,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithSingle(int number,int wager){
+    public double betWithSingle(int number,int wager){
         setSingle(single);
         if(getSingle().contains(number)){
             balance = balance - wager;
@@ -149,7 +149,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithDozen1(int number,int wager){
+    public double betWithDozen1(int number,int wager){
         setDozen1(dozen1);
         if(getDozen1().contains(number)){
             balance = balance - wager;
@@ -160,7 +160,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithDozen2(int number,int wager){
+    public double betWithDozen2(int number,int wager){
         setDozen2(dozen2);
         if(getDozen2().contains(number)){
             balance = balance - wager;
@@ -171,7 +171,7 @@ public class RouletteGame implements GameInterface {
         }
     }
 
-    public int betWithDozen3(int number,int wager){
+    public double betWithDozen3(int number,int wager){
         setDozen3(dozen3);
         if(getDozen3().contains(number)){
             balance = balance - wager;
@@ -307,7 +307,7 @@ public class RouletteGame implements GameInterface {
     public void run() {
         //put code here
         System.out.println("Welcome to Roulette Game");
-        int defaultBalance = balance;
+        double defaultBalance = balance;
         while (true) {
             betMenu();
             int wheelSpin = spin;
