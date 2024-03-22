@@ -30,6 +30,8 @@ public class CasinoAccountManager implements Serializable {
         } else {
             returnVal = null;
         }
+
+
         if (returnVal == null) {
             System.out.println("Incorrect username or password.");
         } else {
