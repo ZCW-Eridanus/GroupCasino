@@ -3,76 +3,91 @@ package com.github.zipcodewilmington.casino.games.blackjack;
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.cardGame.Card;
+import com.github.zipcodewilmington.casino.games.cardGame.Deck;
 import com.github.zipcodewilmington.casino.games.cardGame.Hand;
+
+import java.util.ListIterator;
 
 public class BlackJackPlayer implements PlayerInterface {
 
+  CasinoAccount acct;
   Hand hand = new Hand();
   Integer score = 0;
 
 
-  public void scoreHand() {
+  public int scoreHand(Hand hand2) {
 
-    for (Card card : hand) { // for each card in the hand
+    System.out.println(hand2);
+    int handScore = 0;
 
-      switch (card.getRank()) {
+    ListIterator<Card> cardIterator = hand2.listIterator();
+
+    while (cardIterator.hasNext()) {
+      switch(cardIterator.next().getRank()){
         case TWO:
-          score += 2;
+          handScore += 2;
           break;
         case THREE:
-          score += 3;
+          handScore += 3;
           break;
         case FOUR:
-          score += 4;
+          handScore += 4;
           break;
         case FIVE:
-          score += 5;
+          handScore += 5;
           break;
         case SIX:
-          score += 6;
+          handScore += 6;
           break;
         case SEVEN:
-          score += 7;
+          handScore += 7;
           break;
         case EIGHT:
-          score += 8;
+          handScore += 8;
           break;
         case NINE:
-          score += 9;
+          handScore += 9;
           break;
         case TEN:
         case JACK:
         case QUEEN:
         case KING:
-          score += 10;
+          handScore += 10;
           break;
         case ACE:
-          score += 11;
+          handScore += 11;
           // until we do method for ace, but this is ok
           break;
       }
-
     }
+    System.out.println(handScore);
+    return handScore;
   }
 
-  public int getScore() {
-    return this.score;
-  }
+
+
+
+
 
   public Hand getHand() {
     return this.hand;
   }
 
-  public void hit(Card card) {
-    hand.addCard(card);
+  public Card hit() {
+    Deck deck = new Deck();
+    return deck.dealCard();
   }
 
-  public BlackJackPlayer(CasinoAccount acct) {
+  public String stay() {
+    return "This user has chosen to stay.";
+  }
+
+  public BlackJackPlayer(CasinoAccount acct) { this.acct = acct;
   }
 
   @Override
   public CasinoAccount getAccount() {
-    return null;
+    return this.acct;
   }
 
   @Override

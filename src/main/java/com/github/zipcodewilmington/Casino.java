@@ -1,7 +1,7 @@
 package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.*;
-import com.github.zipcodewilmington.casino.games.blackjack.BlackJack;
+import com.github.zipcodewilmington.casino.games.blackjack.*;
 import com.github.zipcodewilmington.casino.games.numberguess.*;
 import com.github.zipcodewilmington.casino.games.roulette.*;
 import com.github.zipcodewilmington.casino.games.minesweeper.*;
@@ -28,7 +28,7 @@ public class Casino implements Runnable {
                 if (isValidLogin) {
                     String gameSelectionInput = getGameSelectionInput().toUpperCase();
                     if (gameSelectionInput.equals("BLACKJACK")) {
-                        play(new BlackJack(casinoAccount), new BlackJack(casinoAccount));
+                        play(new BlackJack(), new BlackJackPlayer(casinoAccount));
                     } else if (gameSelectionInput.equals("NUMBERGUESS")) {
                         play(new NumberGuessGame(), new NumberGuessPlayer());
                     } else if (gameSelectionInput.equals("MINESWEEPER")) {

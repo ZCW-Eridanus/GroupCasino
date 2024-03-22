@@ -4,12 +4,14 @@ public class Card {
 
   private Suits suit;
   private Ranks rank;
+
   public enum Suits {
     SPADES,
     HEARTS,
     DIAMONDS,
     CLUBS;
   }
+
   public enum Ranks {
     TWO,
     THREE,
@@ -25,6 +27,7 @@ public class Card {
     KING,
     ACE;
   }
+
   public Card(Suits suit, Ranks rank) { // i need to check the cards for value by rank
     this.suit = suit;
     this.rank = rank;
@@ -43,7 +46,8 @@ public class Card {
     return this.rank;
   }
 
-  @Override
+
+@Override
   public String toString() {
     String rankString = "";
     String suitSymbol = "";
@@ -105,5 +109,4 @@ public class Card {
     return rankString + suitSymbol;
   }
 }
-
 // this should be good to go Ethan

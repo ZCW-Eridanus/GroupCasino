@@ -11,9 +11,8 @@ public class BlackJackTest {
 
 @Test
 public void hitTest() {
-  Deck d = new Deck();
   BlackJackPlayer player = new BlackJackPlayer(new CasinoAccount(null, null));
-  player.hit(d.dealCard());
+  player.hit();
 
   Integer expected = 1;
   Integer actual = player.getHand().size();
@@ -39,6 +38,8 @@ public void bustTest() {
 
 @Test
 public void blackJackCheckTest() {
+Deck d = new Deck();
+Hand playerHand = new Hand();
 
 }
 
@@ -84,6 +85,10 @@ public void addedFundsTest(){
 
 @Test
 public void checkWinOrLossTest(){
+Integer score = 0;
+
+
+
 
 }
 
