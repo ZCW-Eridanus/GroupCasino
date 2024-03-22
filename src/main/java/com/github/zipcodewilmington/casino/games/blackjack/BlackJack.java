@@ -3,12 +3,17 @@ package com.github.zipcodewilmington.casino.games.blackjack;
 import com.github.zipcodewilmington.casino.*;
 import com.github.zipcodewilmington.casino.games.cardGame.*;
 import com.github.zipcodewilmington.utils.*;
+import com.sun.source.tree.CompoundAssignmentTree;
 
 public class BlackJack implements GameInterface  {
 
   BlackJackPlayer BJPlayer;
   BlackJackPlayer BJDealer;
+
   IOConsole cons = new IOConsole(AnsiColor.YELLOW, System.in, System.out);
+
+  public BlackJack(CasinoAccount casinoAccount) {
+  }
 
   // BJDealer.getScore()
   // BJPlayer.getScore()
@@ -16,7 +21,17 @@ public class BlackJack implements GameInterface  {
   public void add(PlayerInterface player) {
     this.BJPlayer = (BlackJackPlayer) player;
   }
+
   @Override
+  public void run(CasinoAccount acct) {
+    this.BJPlayer = new BlackJackPlayer(acct);
+    run();
+  }
+
+  public void initializeHands() {
+    Hand BJPlayerHand = new Hand();
+    Hand BJDealerHand = new Hand();
+  }
   public void run() {
     while (true) {
       cons.println("Let's play BlackJack! \n" +
@@ -27,20 +42,17 @@ public class BlackJack implements GameInterface  {
 
       char input = cons.getStringInput("Hearing all that... \n" +
         "Would you still like to play? Enter : Y/N").toLowerCase().charAt(0);
-        if (input == 'y') {
-          playGame(this.BJPlayer, this.BJDealer);
-        }
-        else{
-          break;
-        }
+      if (input == 'y') {
+        playGame(this.BJPlayer, this.BJDealer);
+        initializeHands();
+      }
+      else{
+        break;
+      }
     } exitGame();
   }
 
 
-  @Override
-  public void run(CasinoAccount acct) {
-    this.BJPlayer = new BlackJackPlayer(acct);
-  }
 
   @Override
   public void playGame() {
@@ -79,6 +91,8 @@ public class BlackJack implements GameInterface  {
 
   @Override
   public void exitGame() {
-
+    this.BJPlayer = null;
   }
+
+
 }

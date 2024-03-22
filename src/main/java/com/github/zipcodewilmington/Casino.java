@@ -28,7 +28,7 @@ public class Casino implements Runnable {
                 if (isValidLogin) {
                     String gameSelectionInput = getGameSelectionInput().toUpperCase();
                     if (gameSelectionInput.equals("BLACKJACK")) {
-                        play(new BlackJack(), new BlackJack());
+                        play(new BlackJack(casinoAccount), new BlackJack(casinoAccount));
                     } else if (gameSelectionInput.equals("NUMBERGUESS")) {
                         play(new NumberGuessGame(), new NumberGuessPlayer());
                     } else if (gameSelectionInput.equals("MINESWEEPER")) {
@@ -69,7 +69,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ MINESWEEPER ], [ ROULETTE ]")
+                .append("\n\t[ BLACKJACK ], [ NUMBERGUESS ], [ MINESWEEPER ], [ ROULETTE ]")
                 .toString());
     }
 
