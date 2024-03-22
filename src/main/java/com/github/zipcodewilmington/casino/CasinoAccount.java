@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class CasinoAccount implements Serializable {
     String name;
     String password;
-    Integer balance = 0;
+    Double balance = 0.0;
 
     public CasinoAccount(){
 
@@ -21,11 +21,11 @@ public class CasinoAccount implements Serializable {
         this.password = pw;
     }
 
-    public void setBalance(Integer balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public Integer getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
