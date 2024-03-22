@@ -2,18 +2,21 @@ package com.github.zipcodewilmington.casino.games.BigWheel;
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
-import com.github.zipcodewilmington.casino.games.ThreeCardPoker.ThreeCardPokerPlayer;
 
+import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 public class BigWheelGame implements GameInterface{
+    String[] wheelNumbers = {"7x Multiplier","2","1","5","1","2","5","1","2","10","1","2","1","20","1","2","1","2","1",
+            "5","1","2","10","1","5","1","2","2x Multiplier","1","5","1","40","2","1","2","1","10","2","1","5","1","2","1","5",
+            "2","1","20","1","2","1","10","1","2","1"};
     public static Scanner scanner = new Scanner(System.in);
-
     BigWheelPlayer player;
     double balance;
     public int wagerAmount;
-    public int playerChosenSlot;
-    public int selectedMultiplier;
+    int selectedMultiplier;
+    String winningNumber;
     public int winnings;
     @Override
     public void run() {
@@ -22,9 +25,9 @@ public class BigWheelGame implements GameInterface{
                 exitGame(player);
                 break;
             }
-            rulesAndOdds(player);
             setWager(wagerAmount);
-            spinTheWheel(player);
+            action(player);
+            calculateWinnings(winningNumber);
             playerWon();
             playerLost();
             endWheelTurn();
@@ -43,11 +46,6 @@ public class BigWheelGame implements GameInterface{
         return playGame((BigWheelPlayer) player);
     }
 
-    public void rulesAndOdds(BigWheelPlayer player){
-
-    }
-
-
     @Override
     public void setWager(int wager) {
         System.out.println("Where would you like to place your wager? ");
@@ -60,28 +58,8 @@ public class BigWheelGame implements GameInterface{
         System.out.println(" Type 40 - 40X");
         System.out.println("___________________");
         System.out.print("Choice: ");
-        playerChosenSlot = scanner.nextInt();
-        switch (playerChosenSlot) {
-            case 1:
-                selectedMultiplier = 1;
-                break;
-            case 2:
-                selectedMultiplier = 2;
-                break;
-            case 5:
-                selectedMultiplier = 5;
-                break;
-            case 10:
-                selectedMultiplier = 10;
-                break;
-            case 20:
-                selectedMultiplier = 20;
-                break;
-            case 40:
-                selectedMultiplier = 40;
-                break;
-            default:
-                System.out.println("\nInvalid Choice.");
+        selectedMultiplier = scanner.nextInt();
+
 
                 boolean isInputValid;
                 System.out.println(" ");
@@ -94,7 +72,7 @@ public class BigWheelGame implements GameInterface{
                 }
                 balance -= wagerAmount;
         }
-    }
+
     public boolean validateWagerInput(int wagerCheck){
         if(wagerCheck > balance){
             System.out.println("You don't have enough credits. Enter a valid amount : ");
@@ -105,20 +83,63 @@ public class BigWheelGame implements GameInterface{
 
     @Override
     public <T extends PlayerInterface> void action(T player) {
+
+        System.out.println("Get ready and let's spin!");
+        winningNumber = String.valueOf(new Random().nextInt(wheelNumbers.length));
+        System.out.println("The wheel has landed on : " + wheelNumbers[Integer.parseInt(winningNumber)] + " !");
         action(((BigWheelPlayer) player));
     }
+    public int didItLandOnMultiplier(String winningNumber) {
+        if (winningNumber.equals("7x Multiplier")) {
+            return 7;
+        } else if (winningNumber.equals("2x Multiplier")) {
+            return 2;
+        }
+        return 1; // No multiplier
+    }
+
+
+
+    public int calculateWinnings(String winningNumber) {
+        int multiplier = didItLandOnMultiplier(winningNumber);
+        switch (wagerAmount) {
+            case 1:
+                return multiplier == 1 ? wagerAmount : wagerAmount * multiplier;
+            case 2:
+                return multiplier == 2 ? wagerAmount * 2 : wagerAmount;
+            case 5:
+                return multiplier == 5 ? wagerAmount * 5 : wagerAmount;
+            case 10:
+                return multiplier == 10 ? wagerAmount * 10 : wagerAmount;
+            case 20:
+                return multiplier == 20 ? wagerAmount * 20 : wagerAmount;
+            case 40:
+                return multiplier == 40 ? wagerAmount * 40 : wagerAmount;
+            default:
+                System.out.println("\nInvalid Choice.");
+                return 0;
+        }
+    }
+
+
+
+
 
     @Override
     public <T extends PlayerInterface> void exitGame(T player) {
         exitGame((BigWheelPlayer) player);
-    }
-    public int spinTheWheel(){
-
     }
     public void playerWon(){
         System.out.println("You won " + winnings);
     }
     public void playerLost(){
             System.out.println("Sorry you did not win.");
+    }
+    public void endWheelTurn(){
+        System.out.println("Would you like to play again? Yes/No");
+        if(scanner.nextLine().toLowerCase().equals("yes")){
+            run();
+        }
+        else exitGame(player);
     }
 }

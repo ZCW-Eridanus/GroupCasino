@@ -1,37 +1,23 @@
 package com.github.zipcodewilmington.casino.games.ThreeCardPoker;
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
-import com.github.zipcodewilmington.casino.Card;
 import com.github.zipcodewilmington.casino.PlayerInterface;
+import com.github.zipcodewilmington.casino.games.cardGame.*;
 
 import java.util.*;
 
-public class ThreeCardPokerGame extends Card implements GameInterface {
+public class ThreeCardPokerGame implements GameInterface {
 
     public static Scanner scanner = new Scanner(System.in);
-    ArrayList<String> playerOneHand = new ArrayList<>();
-    ArrayList<String> dealerHand = new ArrayList<>();
 
+//    Deck, Hand
 
     ThreeCardPokerPlayer player;
+    Hand playerHand;
+    Hand dealerHand;
+    Deck threeCardDeck;
     double balance;
     public int wagerAmount;
-    String dealerCard1;
-    String dealerCard2;
-    String dealerCard3;
-
-    //card1 for player
-        String playerCard1;
-        String valueOfCard1;
-        String suitOfCard1;
-    //card2 for player
-        String playerCard2;
-        String valueOfCard2;
-        String suitOfCard2;
-    //card3 for player
-        String playerCard3;
-        String valueOfCard3;
-        String suitOfCard3;
     public int winnings;
     boolean pairPlus = false;
     boolean playedHand = false;
@@ -52,12 +38,10 @@ public class ThreeCardPokerGame extends Card implements GameInterface {
 
             pairPlus(wagerAmount);
             action(player);
-            getDeck();
-            dealerHand();
-            dealPlayerHand();
+
             playYourHand(wagerAmount);
-            pairPlusOdds(playerOneHand);
-            anteBonusOdds(playerOneHand);
+            pairPlusOdds();
+            anteBonusOdds();
             playerWon();
             playerLost();
 
@@ -171,16 +155,23 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
     @Override
     public <T extends PlayerInterface> void action(T player) {
         action(((ThreeCardPokerPlayer) player));
-    }
-
-    public void action(ThreeCardPokerPlayer player) {
         System.out.println("Type - Deal - to deal the cards. ");
         scanner.next().toLowerCase();
+        playerHand.addCard(threeCardDeck.dealCard());
+        playerHand.addCard(threeCardDeck.dealCard());
+        playerHand.addCard(threeCardDeck.dealCard());
+
+        dealerHand.addCard(threeCardDeck.dealCard());
+        dealerHand.addCard(threeCardDeck.dealCard());
+        dealerHand.addCard(threeCardDeck.dealCard());
     }
+
 
 
 
     public void playYourHand(int playerWagerAmount) {
+        System.out.println(playerHand);
+
         System.out.println("Would you like to play your hand Yes/No");
         boolean isInputValid;
         if(scanner.next().toLowerCase().charAt(0) == 'n'){
@@ -218,39 +209,8 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
         player.getAccount().setBalance(balance);
         System.out.println("Would you like to go back to the lobby or exit the casino?  Lobby / Casino");
     }
-    public void dealerHand(){
-        dealerCard1 = dealOneCard();
-        dealerHand.add(dealerCard1);
-        dealerCard2 = dealOneCard();
-        dealerHand.add(dealerCard2);
-        dealerCard3 = dealOneCard();
-        dealerHand.add(dealerCard3);
-        Collections.sort(dealerHand);
 
-        System.out.println("? , ? , ?");
 
-    }
-    public void dealPlayerHand(){
-        playerCard1 = dealOneCard();
-
-         valueOfCard1 = String.valueOf(playerCard1.charAt(0));
-
-         suitOfCard1 = String.valueOf(playerCard1.charAt(1));
-
-        playerOneHand.add(playerCard1);
-        playerCard2 = dealOneCard();
-         valueOfCard2 = String.valueOf(playerCard1.charAt(0));
-         suitOfCard2 = String.valueOf(playerCard1.charAt(1));
-        playerOneHand.add(playerCard2);
-        playerCard3 = dealOneCard();
-         valueOfCard3 = String.valueOf(playerCard1.charAt(0));
-         suitOfCard3 = String.valueOf(playerCard1.charAt(1));
-        playerOneHand.add(playerCard2);
-
-        Collections.sort(playerOneHand);
-
-        System.out.println(playerOneHand);
-    }
     public void playerWon(){
         System.out.println("You won " + winnings);
     }
@@ -260,7 +220,7 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
     }
 
 
-    public void pairPlusOdds(ArrayList<String> playersHand) {
+    public void pairPlusOdds() {
         String RoyalFlush = null;
         String straightFlush = null;
         String threeOfAKind = null;;
@@ -269,7 +229,7 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
         String pair = null;;
         while(pairPlus && playedHand)
         {
-            switch (playersHand) {
+            switch () {
                 case RoyalFlush:
                     if () {
                         winnings = wagerAmount * 100;
@@ -319,12 +279,12 @@ public boolean validateFirstWagerInput(int firstWagerCheck){
             }
         }
     }
-    public void anteBonusOdds(ArrayList<String> playersHand){
+    public void anteBonusOdds(){
         String straightFlush;
         String threeOfAKind;
         String straight;
         while(pairPlus && playedHand){
-            switch (playersHand){
+            switch (){
                 case straightFlush:
                     if(){
                         winnings = wagerAmount * 5;
