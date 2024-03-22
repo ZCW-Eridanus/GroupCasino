@@ -33,10 +33,9 @@ public class BlackJack implements GameInterface {
       cons.println("Let's play BlackJack! \n" +
         "The goal of this game is to reach a summative 21 points from the value of your cards (or be the closest to it.) \n" +
         "Going above this number will result in a BUST! \n" +
-        "All face cards (Jack, Queen, King) count as 10 points each. \n" +
-        "Except for Ace; it can count as a 1 or a 11, depending on what's better for the deck.");
+        "All face cards (Jack, Queen, King) count as 10 points each. \n");
 
-      char input = cons.getStringInput("Hearing all that... \n" +
+      char input = cons.getStringInput(" Now that you've heard the rules... \n" +
         "Would you still like to play? Enter : Y/N").toLowerCase().charAt(0);
       if (input == 'y') {
         playGame(this.BJPlayer, this.BJDealer);
@@ -147,6 +146,7 @@ public class BlackJack implements GameInterface {
   while (true) {
       String input = cons.getStringInput("Would you like to hit or stay?");
       if (input.equals("stay")) {
+        getBJPlayerHand();
         BJPlayer.stay();
         getPlayerScore();
         dealersChoice();
@@ -154,11 +154,13 @@ public class BlackJack implements GameInterface {
       }
       else if(input.equals("hit")) {
         BJPlayerHand.addValuedCard(BJPlayer.hit());
+        getBJPlayerHand();
         getPlayerScore();
         dealersChoice();
 
       }
       checkWinOrLoss();
+
   }
   // if says yes to stay
   // the player doesn't get a card and the score is printed,
