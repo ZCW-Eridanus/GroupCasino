@@ -81,7 +81,7 @@ public class BingoGameTest {
     }
 
     @Test
-    public void testIsBingo_NotBingo() {
+    public void testIsBingoNotBingo() {
         PlayerBoard player = new PlayerBoard(1);
 
         player.markNumber(1);

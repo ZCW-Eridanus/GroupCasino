@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class BingoGame  {
 
-    private List<PlayerBoard> playerBoards; // Collection of player boards
+    private List<PlayerBoard> playerBoards; // Collection of player
     private Random random;
     private Scanner scanner;
 
@@ -17,7 +17,7 @@ public class BingoGame  {
         scanner = new Scanner(System.in);
     }
 
-    // player board the collection
+    // player board collection
     public void addPlayerBoard(PlayerBoard playerBoard) {
         playerBoards.add(playerBoard);
     }
