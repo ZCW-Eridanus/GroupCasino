@@ -1,4 +1,4 @@
-package rouletteTest;
+package com.github.zipcodewilmington.rouletteTest;
 
 import com.github.zipcodewilmington.casino.games.roulette.RouletteGame;
 import org.junit.Test;
