@@ -14,7 +14,7 @@ public class Hand extends ArrayList<Card> {
   }
 
   public ArrayList<Card> getCards() {
-    return this.cards;
+    return this.hand;
   }
   
   public int addValuedCard (Card card) {

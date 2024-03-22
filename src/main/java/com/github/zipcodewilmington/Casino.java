@@ -2,6 +2,7 @@ package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.*;
 import com.github.zipcodewilmington.casino.games.BigWheel.BigWheelGame;
+import com.github.zipcodewilmington.casino.games.ThreeCardPoker.*;
 import com.github.zipcodewilmington.casino.games.numberguess.*;
 import com.github.zipcodewilmington.casino.games.roulette.*;
 import com.github.zipcodewilmington.casino.games.minesweeper.*;
