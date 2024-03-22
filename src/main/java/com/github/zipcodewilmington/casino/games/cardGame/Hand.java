@@ -13,6 +13,10 @@ public class Hand extends ArrayList<Card> {
     return true;
   }
 
+  public ArrayList<Card> getCards() {
+    return this.cards;
+  }
+  
   public int addValuedCard (Card card) {
     int handScore = 0;
 
