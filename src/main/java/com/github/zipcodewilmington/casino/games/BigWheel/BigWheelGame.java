@@ -89,41 +89,43 @@ public class BigWheelGame implements GameInterface{
         System.out.println("The wheel has landed on : " + wheelNumbers[Integer.parseInt(winningNumber)] + " !");
         action(((BigWheelPlayer) player));
     }
+
+
+
     public int didItLandOnMultiplier(String winningNumber) {
-        if (winningNumber.equals("7x Multiplier")) {
-            return 7;
-        } else if (winningNumber.equals("2x Multiplier")) {
-            return 2;
+        if (winningNumber.equals("7x Multiplier") || winningNumber.equals("2x Multiplier")) {
+            action(player);
+            return spinWheel();
         }
-        return 1; // No multiplier
+        return 1;
     }
 
-
+    private int spinWheel() {
+        int newWinningNumber = new Random().nextInt(wheelNumbers.length);
+        System.out.println("Spinning the wheel again...");
+        return newWinningNumber;
+    }
 
     public int calculateWinnings(String winningNumber) {
         int multiplier = didItLandOnMultiplier(winningNumber);
         switch (wagerAmount) {
             case 1:
-                return multiplier == 1 ? wagerAmount : wagerAmount * multiplier;
+                return multiplier == 1 ? winnings = wagerAmount : wagerAmount ;
             case 2:
-                return multiplier == 2 ? wagerAmount * 2 : wagerAmount;
+                return multiplier == 2 ? winnings =  wagerAmount * 2 : wagerAmount;
             case 5:
-                return multiplier == 5 ? wagerAmount * 5 : wagerAmount;
+                return multiplier == 5 ? winnings = wagerAmount * 5 : wagerAmount;
             case 10:
-                return multiplier == 10 ? wagerAmount * 10 : wagerAmount;
+                return multiplier == 10 ? winnings = wagerAmount * 10 : wagerAmount;
             case 20:
-                return multiplier == 20 ? wagerAmount * 20 : wagerAmount;
+                return multiplier == 20 ? winnings = wagerAmount * 20 : wagerAmount;
             case 40:
-                return multiplier == 40 ? wagerAmount * 40 : wagerAmount;
+                return multiplier == 40 ? winnings = wagerAmount * 40 : wagerAmount;
             default:
                 System.out.println("\nInvalid Choice.");
                 return 0;
         }
     }
-
-
-
-
 
     @Override
     public <T extends PlayerInterface> void exitGame(T player) {
